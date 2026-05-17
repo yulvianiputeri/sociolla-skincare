@@ -1,0 +1,236 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+    --rose:       #E8A4B8;
+    --rose-deep:  #C97A94;
+    --rose-light: #F5D5E2;
+    --rose-pale:  #FDF0F5;
+    --blush:      #F9E4EC;
+    --nude:       #F2DDD6;
+    --nude-deep:  #D4A59A;
+    --cream:      #FDF8F5;
+    --sage:       #B5C9B7;
+    --text:       #3D2B35;
+    --text-soft:  #7A5C6A;
+    --text-light: #B89BA5;
+    --border:     #EDD5DF;
+    --white:      #FFFFFF;
+}
+
+/* ── BASE ── */
+.stApp { background: var(--cream) !important; font-family: 'DM Sans', sans-serif !important; }
+.block-container { padding-top: 1.5rem !important; padding-bottom: 3rem !important; max-width: 1100px !important; }
+
+/* ── TYPOGRAPHY ── */
+h1 {
+    font-family: 'Playfair Display', Georgia, serif !important;
+    font-style: italic !important;
+    font-weight: 400 !important;
+    color: var(--text) !important;
+    font-size: 2.1rem !important;
+    letter-spacing: -0.5px !important;
+}
+h2 {
+    font-family: 'Playfair Display', serif !important;
+    font-weight: 400 !important;
+    font-style: italic !important;
+    font-size: 1.35rem !important;
+    color: var(--text) !important;
+}
+h3 {
+    font-family: 'DM Sans', sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 0.95rem !important;
+    color: var(--text-soft) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+}
+p, .stMarkdown p { color: var(--text-soft) !important; font-size: 0.88rem !important; line-height: 1.7 !important; }
+
+/* ── METRIC CARDS ── */
+.metric-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.2rem 1.4rem;
+    text-align: left;
+    transition: box-shadow 0.2s;
+}
+.metric-card:hover { box-shadow: 0 4px 20px rgba(201,122,148,0.12); }
+.metric-card .label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--text-light);
+    margin-bottom: 0.3rem;
+}
+.metric-card .value {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.9rem;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1;
+}
+
+/* ── REC CARDS ── */
+.rec-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--rose);
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    margin: 0.5rem 0;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+.rec-card:hover { box-shadow: 0 3px 14px rgba(201,122,148,0.1); }
+.rec-card h4 { color: var(--text) !important; font-weight: 500 !important; font-size: 0.95rem !important; margin: 0 0 0.35rem !important; }
+.rec-card p  { color: var(--text-soft) !important; font-size: 0.84rem !important; margin: 0.15rem 0 !important; }
+
+/* ── BEST MODEL CARD ── */
+.best-card {
+    background: linear-gradient(135deg, var(--rose-light) 0%, var(--nude) 100%);
+    border: 1px solid var(--rose);
+    border-radius: 16px;
+    padding: 1.4rem 1.6rem;
+    margin: 0.75rem 0 1.25rem;
+}
+.best-card h3 { color: var(--text) !important; font-family: 'Playfair Display', serif !important; font-size: 1.15rem !important; font-style: italic !important; text-transform: none !important; letter-spacing: 0 !important; margin: 0 0 0.4rem !important; }
+.best-card p  { color: var(--text-soft) !important; font-size: 0.88rem !important; }
+
+/* ── TABS ── */
+.stTabs [data-baseweb="tab-list"] {
+    background: transparent;
+    border-bottom: 1px solid var(--border);
+    gap: 0;
+    padding: 0;
+}
+.stTabs [data-baseweb="tab"] {
+    font-size: 0.84rem;
+    font-weight: 400;
+    color: var(--text-light);
+    background: transparent;
+    border-bottom: 2px solid transparent;
+    padding: 0.6rem 1.1rem;
+    margin-bottom: -1px;
+    border-radius: 0;
+}
+.stTabs [aria-selected="true"] {
+    color: var(--rose-deep) !important;
+    font-weight: 500 !important;
+    border-bottom: 2px solid var(--rose-deep) !important;
+    background: transparent !important;
+}
+
+/* ── SIDEBAR ── */
+[data-testid="stSidebar"] {
+    background: var(--white) !important;
+    border-right: 1px solid var(--border) !important;
+}
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3 {
+    font-size: 0.72rem !important;
+    font-family: 'DM Sans', sans-serif !important;
+    font-style: normal !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    color: var(--text-light) !important;
+}
+[data-testid="stSidebar"] .stMetric {
+    background: var(--blush);
+    border-radius: 10px;
+    padding: 0.65rem 0.9rem;
+    margin-bottom: 0.4rem;
+}
+
+/* ── BUTTONS ── */
+div.stButton > button {
+    background: var(--white) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 10px !important;
+    color: var(--text) !important;
+    font-family: 'DM Sans', sans-serif !important;
+    font-size: 0.84rem !important;
+    font-weight: 500 !important;
+    padding: 0.5rem 1rem !important;
+    transition: all 0.15s !important;
+    box-shadow: none !important;
+}
+div.stButton > button:hover {
+    background: var(--blush) !important;
+    border-color: var(--rose) !important;
+}
+div.stButton > button[kind="primary"] {
+    background: var(--rose-deep) !important;
+    border-color: var(--rose-deep) !important;
+    color: #fff !important;
+}
+div.stButton > button[kind="primary"]:hover {
+    background: #b56882 !important;
+    border-color: #b56882 !important;
+}
+
+/* ── INPUTS ── */
+.stSelectbox > div > div > div,
+.stTextInput > div > div > input,
+.stNumberInput > div > div > input {
+    background: var(--white) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 10px !important;
+    font-family: 'DM Sans', sans-serif !important;
+    font-size: 0.84rem !important;
+    color: var(--text) !important;
+}
+.stSelectbox > div > div > div:focus-within,
+.stTextInput > div > div > input:focus,
+.stNumberInput > div > div > input:focus {
+    border-color: var(--rose) !important;
+    box-shadow: 0 0 0 3px rgba(232,164,184,0.2) !important;
+}
+.stSelectbox > label,
+.stTextInput > label,
+.stNumberInput > label {
+    font-size: 0.78rem !important;
+    font-weight: 500 !important;
+    color: var(--text-soft) !important;
+    letter-spacing: 0.02em !important;
+}
+
+/* ── DATAFRAME ── */
+[data-testid="stDataFrame"] {
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+}
+[data-testid="stDataFrame"] thead th {
+    background: var(--blush) !important;
+    color: var(--text-soft) !important;
+    font-size: 0.76rem !important;
+    font-weight: 500 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+}
+[data-testid="stDataFrame"] tbody tr:hover { background: var(--rose-pale) !important; }
+
+/* ── ALERTS ── */
+.stAlert { border-radius: 10px !important; font-size: 0.84rem !important; }
+
+/* ── EXPANDER ── */
+.streamlit-expander {
+    border: 1px solid var(--border) !important;
+    border-radius: 12px !important;
+    background: var(--white) !important;
+}
+
+/* ── SCORE BADGE ── */
+.badge {
+    display: inline-block;
+    background: var(--blush);
+    color: var(--rose-deep);
+    border-radius: 20px;
+    padding: 0.1rem 0.55rem;
+    font-size: 0.76rem;
+    font-weight: 500;
+}
+.badge-best { background: var(--rose-light); color: var(--rose-deep); }
