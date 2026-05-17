@@ -49,9 +49,13 @@ class SkincareAnalytics:
         # Sample for performance
         sample_df = self.df.sample(min(500, len(self.df)))
         
+        # Fix negative values for marker size
+        sample_df = sample_df.copy()
+        sample_df['wishlist_size'] = sample_df['total_in_wishlist'].clip(lower=0)
+
         fig = px.scatter(
             sample_df, x='total_reviews', y='average_rating',
-            size='total_in_wishlist', color='average_rating',
+            size='wishlist_size', color='average_rating',
             title='📈 Reviews vs Rating',
             color_continuous_scale='viridis'
         )

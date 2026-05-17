@@ -48,8 +48,8 @@ class RandomForestModel:
         self.df['category_encoded'] = le_category.fit_transform(self.df['default_category'].astype(str))
         
         # Log transforms
-        self.df['log_reviews'] = np.log1p(self.df['total_reviews'].fillna(0))
-        self.df['log_wishlist'] = np.log1p(self.df['total_in_wishlist'].fillna(0))
+        self.df['log_reviews'] = np.log1p(self.df['total_reviews'].fillna(0).clip(0, None))
+        self.df['log_wishlist'] = np.log1p(self.df['total_in_wishlist'].fillna(0).clip(0, None))
         
         # Check and create additional features
         if 'log_price' not in self.df.columns:
@@ -64,17 +64,20 @@ class RandomForestModel:
             
             if max_reviews > 0 and max_wishlist > 0:
                 self.df['popularity_score'] = (
-                    self.df['average_rating'] * 0.4 + 
+                    self.df['average_rating'].fillna(4.0) * 0.4 + 
                     (self.df['log_reviews'] / max_reviews) * 0.3 + 
                     (self.df['log_wishlist'] / max_wishlist) * 0.3
                 )
             else:
-                self.df['popularity_score'] = self.df['average_rating'] * 0.8
+                self.df['popularity_score'] = self.df['average_rating'].fillna(4.0) * 0.8
         
         if 'review_wishlist_ratio' not in self.df.columns:
             self.df['review_wishlist_ratio'] = (
                 self.df['total_in_wishlist'] / (self.df['total_reviews'] + 1)
             ).clip(0, 10)
+        
+        # Handle inf/nan in features
+        self.df['popularity_score'] = self.df['popularity_score'].replace([np.inf, -np.inf], np.nan).fillna(2.0)
         
         print("✅ Features prepared (7 core features)")
     
@@ -119,6 +122,10 @@ class RandomForestModel:
         X_train, X_test, y_train, y_test = train_test_split(
             X, y, test_size=0.2, random_state=42
         )
+        
+        # Handle NaN in training data
+        X_train = X_train.fillna(0)
+        X_test = X_test.fillna(0)
         
         # Scale
         X_train_scaled = pd.DataFrame(
