@@ -40,9 +40,7 @@ class SkincareDataCleaner:
 
         return "Unknown"
 
-    # =========================================================
     # CLEAN CATEGORY
-    # =========================================================
     def clean_category_name(self, category_str):
 
         if pd.isna(category_str):
@@ -71,9 +69,8 @@ class SkincareDataCleaner:
 
         return "Other"
 
-    # =========================================================
+
     # CLEAN PRICE
-    # =========================================================
     def extract_price(self, price_str):
 
         if pd.isna(price_str):
@@ -109,9 +106,7 @@ class SkincareDataCleaner:
         except:
             return 50000
 
-    # =========================================================
     # LOAD DATA
-    # =========================================================
     def load_raw_data(self):
 
         possible_paths = [
@@ -133,9 +128,7 @@ class SkincareDataCleaner:
 
         raise FileNotFoundError("❌ Dataset tidak ditemukan!")
 
-    # =========================================================
     # PRINT UTIL
-    # =========================================================
     def print_separator(self, title):
 
         print("\n" + "=" * 55)
@@ -151,16 +144,12 @@ class SkincareDataCleaner:
         print(f"  After  : {after:,} {unit}")
         print(f"  Removed: {removed:,} {unit} ({pct:.1f}%)")
 
-    # =========================================================
     # MAIN CLEANING
-    # =========================================================
     def clean_data(self, df):
 
         df_raw = df.copy()
 
-        # =====================================================
         # STEP 1 — LOAD DATA
-        # =====================================================
         self.print_separator("STEP 1 — Load Data")
 
         print(f"  Produk  : {len(df):,}")
@@ -170,9 +159,7 @@ class SkincareDataCleaner:
         print(f"\n  Sample kolom:")
         print(list(df.columns[:5]))
 
-        # =====================================================
         # STEP 2 — DROP MISSING VALUES
-        # =====================================================
         self.print_separator("STEP 2 — Drop Missing Values")
 
         essential_cols = [
@@ -193,9 +180,7 @@ class SkincareDataCleaner:
             len(df)
         )
 
-        # =====================================================
         # STEP 3 — CLEAN BRAND
-        # =====================================================
         self.print_separator("STEP 3 — Clean Brand Names")
 
         before_brands = df['brand_name'].nunique()
@@ -219,9 +204,7 @@ class SkincareDataCleaner:
         print(f"\n  Unique brands:")
         print(f"  {before_brands} → {after_brands}")
 
-        # =====================================================
         # STEP 4 — CLEAN CATEGORY
-        # =====================================================
         self.print_separator("STEP 4 — Clean Category Names")
 
         before_cats = df['default_category'].nunique()
@@ -245,9 +228,7 @@ class SkincareDataCleaner:
         print(f"\n  Unique kategori:")
         print(f"  {before_cats} → {after_cats}")
 
-        # =====================================================
         # STEP 5 — EXTRACT PRICE
-        # =====================================================
         self.print_separator("STEP 5 — Extract Price")
 
         if 'price_range' in df.columns:
@@ -279,9 +260,7 @@ class SkincareDataCleaner:
             print("  Kolom price_range tidak ditemukan")
             print("  Menggunakan default Rp50.000")
 
-        # =====================================================
         # STEP 6 — CLEAN NUMERIC
-        # =====================================================
         self.print_separator("STEP 6 — Filter Rating (1–5)")
 
         df['total_reviews'] = pd.to_numeric(
@@ -331,9 +310,7 @@ class SkincareDataCleaner:
             f"{df['average_rating'].mean():.2f}"
         )
 
-        # =====================================================
         # STEP 7 — REMOVE OUTLIERS
-        # =====================================================
         self.print_separator("STEP 7 — Remove Outliers")
 
         before = len(df)
@@ -359,9 +336,7 @@ class SkincareDataCleaner:
             f"{df['total_reviews'].max():,.0f}"
         )
 
-        # =====================================================
         # STEP 8 — FILTER RARE
-        # =====================================================
         self.print_separator("STEP 8 — Filter Rare Items")
 
         brand_counts = df['brand_name'].value_counts()
@@ -412,9 +387,7 @@ class SkincareDataCleaner:
             len(df)
         )
 
-        # =====================================================
         # STEP 9 — REMOVE UNKNOWN
-        # =====================================================
         self.print_separator("STEP 9 — Remove Unknown Brand")
 
         before = len(df)
@@ -437,9 +410,7 @@ class SkincareDataCleaner:
 
         return df
 
-    # =========================================================
     # SAVE DATA
-    # =========================================================
     def save_cleaned_data(self, df):
 
         output_path = os.path.join(
@@ -451,9 +422,7 @@ class SkincareDataCleaner:
 
         return output_path
 
-    # =========================================================
     # RUN
-    # =========================================================
     def run(self):
 
         df_raw, path = self.load_raw_data()
@@ -467,9 +436,7 @@ class SkincareDataCleaner:
 
         output_path = self.save_cleaned_data(df_clean)
 
-        # =====================================================
         # SUMMARY
-        # =====================================================
         print("\n" + "=" * 55)
         print("  RINGKASAN PREPROCESSING")
         print("=" * 55)
@@ -504,9 +471,6 @@ class SkincareDataCleaner:
         return df_clean
 
 
-# =============================================================
-# MAIN
-# =============================================================
 def main():
 
     cleaner = SkincareDataCleaner()
